@@ -1,0 +1,1557 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Mockup navegable de CABANY, marketplace turístico para Panamá.">
+  <title>CABANY | Mockup funcional</title>
+  <style>
+    :root {
+      --forest: #0d5335;
+      --forest-dark: #073e28;
+      --leaf: #2f8b57;
+      --mint: #e8f4ec;
+      --aqua: #0f7780;
+      --sand: #f7f1e5;
+      --gold: #e69520;
+      --ink: #17312a;
+      --muted: #65756f;
+      --line: #dfe9e3;
+      --paper: #ffffff;
+      --page: #f6faf7;
+      --shadow: 0 16px 40px rgba(15, 72, 48, .12);
+      --radius-lg: 26px;
+      --radius-md: 18px;
+      --radius-sm: 12px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--page);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.5;
+    }
+
+    button, input, select, textarea { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+    [hidden] { display: none !important; }
+
+    .demo-ribbon {
+      background: var(--forest-dark);
+      color: #fff;
+      padding: 7px 20px;
+      text-align: center;
+      font-size: 13px;
+      letter-spacing: .01em;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(255,255,255,.94);
+      border-bottom: 1px solid rgba(13,83,53,.1);
+      backdrop-filter: blur(14px);
+    }
+
+    .header-inner {
+      width: min(1180px, calc(100% - 32px));
+      min-height: 74px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 11px;
+      color: var(--forest-dark);
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: .08em;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px 12px 18px 18px;
+      background: linear-gradient(145deg, var(--leaf), var(--forest-dark));
+      color: #fff;
+      font-size: 20px;
+      box-shadow: 0 8px 18px rgba(13,83,53,.2);
+    }
+
+    .desktop-nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .nav-button {
+      min-height: 42px;
+      padding: 0 15px;
+      border: 0;
+      border-radius: 999px;
+      background: transparent;
+      color: var(--ink);
+      cursor: pointer;
+      font-weight: 650;
+    }
+
+    .nav-button:hover,
+    .nav-button[aria-current="page"] {
+      background: var(--mint);
+      color: var(--forest);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .primary-button,
+    .secondary-button,
+    .ghost-button,
+    .icon-button {
+      min-height: 44px;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      cursor: pointer;
+      font-weight: 750;
+      transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+    }
+
+    .primary-button {
+      padding: 0 20px;
+      background: var(--forest);
+      color: #fff;
+      box-shadow: 0 8px 18px rgba(13,83,53,.2);
+    }
+
+    .secondary-button {
+      padding: 0 18px;
+      background: var(--paper);
+      color: var(--forest);
+      border-color: rgba(13,83,53,.24);
+    }
+
+    .ghost-button {
+      padding: 0 14px;
+      background: transparent;
+      color: var(--forest);
+    }
+
+    .primary-button:hover,
+    .secondary-button:hover,
+    .ghost-button:hover,
+    .icon-button:hover { transform: translateY(-1px); }
+
+    .mobile-menu-button { display: none; }
+    .mobile-nav {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto 12px;
+      padding: 10px;
+      display: none;
+      gap: 6px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: var(--paper);
+      box-shadow: var(--shadow);
+    }
+    .mobile-nav .nav-button {
+      width: 100%;
+      text-align: left;
+    }
+
+    .page-panel { min-height: 60vh; }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      min-height: 600px;
+      padding: 90px 0 74px;
+      background:
+        linear-gradient(90deg, rgba(4,48,29,.94) 0%, rgba(4,48,29,.82) 43%, rgba(4,48,29,.2) 72%, rgba(4,48,29,.08) 100%),
+        url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1800&q=86") center/cover;
+      color: #fff;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: auto -8% -190px auto;
+      width: 520px;
+      height: 520px;
+      border-radius: 50%;
+      background: rgba(230,149,32,.2);
+      filter: blur(4px);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      width: min(1180px, calc(100% - 32px));
+      margin: auto;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 16px;
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .13em;
+    }
+
+    .hero .eyebrow {
+      padding: 7px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.2);
+    }
+
+    .hero h1 {
+      max-width: 720px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(48px, 7vw, 82px);
+      line-height: .98;
+      letter-spacing: -.045em;
+      font-weight: 700;
+    }
+
+    .hero-copy {
+      max-width: 620px;
+      margin: 22px 0 34px;
+      color: rgba(255,255,255,.88);
+      font-size: clamp(17px, 2vw, 21px);
+    }
+
+    .search-shell {
+      max-width: 1080px;
+      padding: 10px;
+      display: grid;
+      grid-template-columns: 1.35fr 1fr 1fr .75fr auto;
+      align-items: end;
+      gap: 8px;
+      background: #fff;
+      border-radius: 22px;
+      box-shadow: 0 22px 60px rgba(0,0,0,.25);
+      color: var(--ink);
+    }
+
+    .search-field {
+      min-width: 0;
+      padding: 8px 13px;
+      border-right: 1px solid var(--line);
+    }
+
+    .search-field label {
+      display: block;
+      margin-bottom: 2px;
+      color: var(--forest);
+      font-size: 11px;
+      font-weight: 850;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+    }
+
+    .search-field input,
+    .search-field select {
+      width: 100%;
+      min-height: 34px;
+      padding: 0;
+      border: 0;
+      outline: 0;
+      background: transparent;
+      color: var(--ink);
+      font-size: 15px;
+    }
+
+    .search-submit {
+      min-width: 122px;
+      min-height: 58px;
+      border: 0;
+      border-radius: 16px;
+      background: var(--gold);
+      color: #fff;
+      cursor: pointer;
+      font-weight: 850;
+      box-shadow: 0 10px 20px rgba(230,149,32,.28);
+    }
+
+    .hero-proof {
+      margin-top: 26px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 18px;
+      color: rgba(255,255,255,.86);
+      font-size: 14px;
+    }
+
+    .hero-proof span::before {
+      content: "✓";
+      display: inline-grid;
+      place-items: center;
+      width: 22px;
+      height: 22px;
+      margin-right: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.16);
+      color: #fff;
+      font-weight: 900;
+    }
+
+    .content-section {
+      width: min(1180px, calc(100% - 32px));
+      margin: auto;
+      padding: 72px 0;
+    }
+
+    .section-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 28px;
+      margin-bottom: 28px;
+    }
+
+    .section-heading h2,
+    .dashboard-heading h1 {
+      margin: 3px 0 0;
+      color: var(--forest-dark);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(32px, 4vw, 47px);
+      line-height: 1.08;
+      letter-spacing: -.025em;
+    }
+
+    .section-heading p,
+    .dashboard-heading p {
+      max-width: 590px;
+      margin: 8px 0 0;
+      color: var(--muted);
+    }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 12px;
+    }
+
+    .category-chip {
+      min-height: 104px;
+      padding: 18px 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: var(--paper);
+      color: var(--ink);
+      cursor: pointer;
+      text-align: left;
+      transition: border .2s ease, transform .2s ease, box-shadow .2s ease;
+    }
+
+    .category-chip:hover,
+    .category-chip[aria-pressed="true"] {
+      transform: translateY(-3px);
+      border-color: var(--leaf);
+      box-shadow: 0 12px 26px rgba(15,72,48,.1);
+    }
+
+    .category-chip span {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 25px;
+    }
+
+    .category-chip strong { display: block; }
+    .category-chip small { color: var(--muted); }
+
+    .results-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 40px 0 18px;
+    }
+
+    .results-bar strong { color: var(--forest); }
+
+    .filter-button {
+      min-height: 42px;
+      padding: 0 16px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: var(--paper);
+      color: var(--ink);
+      cursor: pointer;
+      font-weight: 700;
+    }
+
+    .property-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 24px;
+    }
+
+    .property-card {
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-lg);
+      background: var(--paper);
+      box-shadow: 0 8px 22px rgba(14,63,43,.06);
+      transition: transform .22s ease, box-shadow .22s ease;
+    }
+
+    .property-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow);
+    }
+
+    .property-media {
+      position: relative;
+      min-height: 245px;
+      background-color: #bad2c3;
+      background-position: center;
+      background-size: cover;
+    }
+
+    .media-one { background-image: linear-gradient(0deg, rgba(6,48,29,.15), rgba(6,48,29,0)), url("https://images.unsplash.com/photo-1449158743715-0a90ebb6d2d8?auto=format&fit=crop&w=1100&q=82"); }
+    .media-two { background-image: linear-gradient(0deg, rgba(6,48,29,.15), rgba(6,48,29,0)), url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1100&q=82"); }
+    .media-three { background-image: linear-gradient(0deg, rgba(6,48,29,.15), rgba(6,48,29,0)), url("https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=1100&q=82"); }
+    .media-four { background-image: linear-gradient(0deg, rgba(6,48,29,.15), rgba(6,48,29,0)), url("https://images.unsplash.com/photo-1473445361085-b9a07f55608b?auto=format&fit=crop&w=1100&q=82"); }
+
+    .property-tag {
+      position: absolute;
+      left: 15px;
+      top: 15px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.94);
+      color: var(--forest);
+      font-size: 12px;
+      font-weight: 850;
+    }
+
+    .favorite-button {
+      position: absolute;
+      right: 14px;
+      top: 14px;
+      width: 42px;
+      height: 42px;
+      border: 0;
+      border-radius: 50%;
+      background: rgba(255,255,255,.94);
+      color: var(--forest-dark);
+      cursor: pointer;
+      font-size: 21px;
+      line-height: 1;
+      box-shadow: 0 5px 15px rgba(0,0,0,.12);
+    }
+
+    .favorite-button[aria-pressed="true"] { color: #c94444; }
+
+    .property-body { padding: 20px; }
+    .property-topline {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .property-topline h3 {
+      margin: 0;
+      color: var(--forest-dark);
+      font-size: 20px;
+      line-height: 1.18;
+    }
+    .rating {
+      white-space: nowrap;
+      color: var(--gold);
+      font-weight: 800;
+    }
+    .property-location { margin: 7px 0 12px; color: var(--muted); font-size: 14px; }
+    .property-features {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin: 0 0 18px;
+      padding: 0;
+      list-style: none;
+    }
+    .property-features li {
+      padding: 5px 9px;
+      border-radius: 999px;
+      background: var(--mint);
+      color: var(--forest);
+      font-size: 12px;
+      font-weight: 700;
+    }
+    .property-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      padding-top: 16px;
+      border-top: 1px solid var(--line);
+    }
+    .price strong { font-size: 22px; color: var(--forest-dark); }
+    .price small { display: block; color: var(--muted); }
+    .details-button {
+      min-height: 42px;
+      padding: 0 15px;
+      border: 1px solid rgba(13,83,53,.22);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--forest);
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .empty-results {
+      padding: 50px 24px;
+      border: 1px dashed rgba(13,83,53,.3);
+      border-radius: var(--radius-lg);
+      background: var(--mint);
+      text-align: center;
+    }
+
+    .experience-strip {
+      background: var(--forest-dark);
+      color: #fff;
+    }
+    .experience-grid {
+      width: min(1180px, calc(100% - 32px));
+      margin: auto;
+      padding: 70px 0;
+      display: grid;
+      grid-template-columns: .85fr 1.15fr;
+      gap: 34px;
+      align-items: center;
+    }
+    .experience-copy h2 {
+      margin: 8px 0 16px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(34px, 4vw, 50px);
+      line-height: 1.06;
+    }
+    .experience-copy p { color: rgba(255,255,255,.75); }
+    .experience-list {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+    }
+    .experience-item {
+      min-height: 150px;
+      padding: 22px;
+      border: 1px solid rgba(255,255,255,.13);
+      border-radius: var(--radius-md);
+      background: rgba(255,255,255,.07);
+    }
+    .experience-item span { font-size: 28px; }
+    .experience-item h3 { margin: 11px 0 5px; }
+    .experience-item p { margin: 0; color: rgba(255,255,255,.66); font-size: 14px; }
+
+    .owner-callout {
+      width: min(1180px, calc(100% - 32px));
+      margin: 72px auto;
+      padding: 48px;
+      display: grid;
+      grid-template-columns: 1.2fr .8fr;
+      align-items: center;
+      gap: 28px;
+      border-radius: 32px;
+      background:
+        linear-gradient(120deg, rgba(232,244,236,.98), rgba(247,241,229,.96)),
+        radial-gradient(circle at right, rgba(230,149,32,.22), transparent 55%);
+      border: 1px solid rgba(13,83,53,.12);
+    }
+    .owner-callout h2 {
+      margin: 5px 0 12px;
+      color: var(--forest-dark);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(32px, 4vw, 46px);
+      line-height: 1.08;
+    }
+    .owner-callout p { max-width: 650px; color: var(--muted); }
+    .owner-flow {
+      display: grid;
+      gap: 10px;
+    }
+    .owner-flow div {
+      padding: 13px 15px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.78);
+      color: var(--forest-dark);
+      font-weight: 750;
+    }
+
+    .dashboard {
+      width: min(1180px, calc(100% - 32px));
+      margin: auto;
+      padding: 62px 0 84px;
+    }
+    .dashboard-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 28px;
+      margin-bottom: 28px;
+    }
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: var(--mint);
+      color: var(--forest);
+      font-size: 12px;
+      font-weight: 850;
+    }
+    .status-pill::before {
+      content: "";
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--leaf);
+    }
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .metric {
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: var(--paper);
+    }
+    .metric small { color: var(--muted); font-weight: 700; }
+    .metric strong {
+      display: block;
+      margin-top: 6px;
+      color: var(--forest-dark);
+      font-size: 30px;
+      line-height: 1;
+    }
+    .dashboard-layout {
+      display: grid;
+      grid-template-columns: 1.25fr .75fr;
+      gap: 22px;
+    }
+    .dashboard-card {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-md);
+      background: var(--paper);
+      box-shadow: 0 8px 22px rgba(14,63,43,.05);
+    }
+    .dashboard-card h2,
+    .dashboard-card h3 { margin-top: 0; color: var(--forest-dark); }
+    .listing-row,
+    .request-row {
+      display: grid;
+      grid-template-columns: 1.5fr .85fr .75fr auto;
+      align-items: center;
+      gap: 14px;
+      padding: 15px 0;
+      border-top: 1px solid var(--line);
+    }
+    .listing-row:first-of-type,
+    .request-row:first-of-type { border-top: 0; }
+    .row-title strong { display: block; }
+    .row-title small { color: var(--muted); }
+    .table-label { color: var(--muted); font-size: 13px; }
+    .workflow-list {
+      display: grid;
+      gap: 12px;
+      counter-reset: flow;
+    }
+    .workflow-item {
+      position: relative;
+      padding: 14px 14px 14px 48px;
+      border-radius: 14px;
+      background: var(--mint);
+    }
+    .workflow-item::before {
+      counter-increment: flow;
+      content: counter(flow);
+      position: absolute;
+      left: 14px;
+      top: 13px;
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--forest);
+      color: #fff;
+      font-size: 12px;
+      font-weight: 850;
+    }
+    .workflow-item strong { display: block; }
+    .workflow-item small { color: var(--muted); }
+
+    .scope-banner {
+      margin-top: 24px;
+      padding: 22px;
+      border-left: 5px solid var(--gold);
+      border-radius: 0 var(--radius-md) var(--radius-md) 0;
+      background: var(--sand);
+      color: #705022;
+    }
+    .scope-banner strong { display: block; margin-bottom: 5px; }
+
+    .site-footer {
+      background: #052f20;
+      color: rgba(255,255,255,.82);
+    }
+    .footer-inner {
+      width: min(1180px, calc(100% - 32px));
+      margin: auto;
+      padding: 48px 0 26px;
+      display: grid;
+      grid-template-columns: 1.2fr repeat(3, .7fr);
+      gap: 34px;
+    }
+    .footer-brand p { max-width: 380px; color: rgba(255,255,255,.64); }
+    .footer-column h3 { margin: 0 0 12px; color: #fff; font-size: 15px; }
+    .footer-column a { display: block; margin: 8px 0; color: rgba(255,255,255,.68); font-size: 14px; }
+    .footer-bottom {
+      width: min(1180px, calc(100% - 32px));
+      margin: auto;
+      padding: 20px 0 28px;
+      border-top: 1px solid rgba(255,255,255,.12);
+      color: rgba(255,255,255,.52);
+      font-size: 13px;
+    }
+
+    dialog {
+      width: min(720px, calc(100% - 28px));
+      max-height: min(88vh, 800px);
+      padding: 0;
+      overflow: auto;
+      border: 0;
+      border-radius: 24px;
+      background: var(--paper);
+      color: var(--ink);
+      box-shadow: 0 30px 90px rgba(0,0,0,.36);
+    }
+    dialog::backdrop {
+      background: rgba(2,28,18,.64);
+      backdrop-filter: blur(4px);
+    }
+    .dialog-header {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(255,255,255,.96);
+    }
+    .dialog-header h2 { margin: 0; color: var(--forest-dark); }
+    .close-button {
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 50%;
+      background: #fff;
+      cursor: pointer;
+      font-size: 20px;
+    }
+    .dialog-body { padding: 24px; }
+    .detail-hero {
+      min-height: 260px;
+      border-radius: 18px;
+      background: #c7d9cc center/cover;
+    }
+    .detail-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin: 18px 0;
+    }
+    .detail-meta span {
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: var(--mint);
+      color: var(--forest);
+      font-size: 13px;
+      font-weight: 750;
+    }
+    .dialog-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 24px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .form-group { min-width: 0; }
+    .form-group.full { grid-column: 1 / -1; }
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--forest-dark);
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      min-height: 46px;
+      padding: 11px 12px;
+      border: 1px solid #cfdcd4;
+      border-radius: 12px;
+      background: #fff;
+      color: var(--ink);
+      outline: 0;
+    }
+    .form-group textarea { min-height: 100px; resize: vertical; }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--leaf);
+      box-shadow: 0 0 0 3px rgba(47,139,87,.14);
+    }
+    .assisted-note {
+      margin-bottom: 20px;
+      padding: 14px 16px;
+      border-radius: 14px;
+      background: var(--sand);
+      color: #735526;
+      font-size: 14px;
+    }
+    .success-state {
+      padding: 44px 22px;
+      text-align: center;
+    }
+    .success-icon {
+      width: 74px;
+      height: 74px;
+      margin: 0 auto 18px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--mint);
+      color: var(--forest);
+      font-size: 34px;
+      font-weight: 900;
+    }
+    .success-state h2 { color: var(--forest-dark); }
+    .reservation-code {
+      display: inline-block;
+      margin: 8px 0 16px;
+      padding: 8px 12px;
+      border-radius: 10px;
+      background: #eff4f1;
+      color: var(--forest-dark);
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-weight: 850;
+    }
+
+    .toast {
+      position: fixed;
+      right: 22px;
+      bottom: 22px;
+      z-index: 80;
+      max-width: 360px;
+      padding: 14px 17px;
+      border-radius: 14px;
+      background: var(--forest-dark);
+      color: #fff;
+      box-shadow: var(--shadow);
+      transform: translateY(130%);
+      opacity: 0;
+      transition: transform .28s ease, opacity .28s ease;
+    }
+    .toast.show { transform: translateY(0); opacity: 1; }
+
+    @media (max-width: 980px) {
+      .desktop-nav { display: none; }
+      .mobile-menu-button { display: inline-grid; place-items: center; }
+      .mobile-nav { display: grid; }
+      .search-shell { grid-template-columns: repeat(2, 1fr); }
+      .search-field { border-right: 0; border-bottom: 1px solid var(--line); }
+      .search-submit { grid-column: 1 / -1; width: 100%; }
+      .category-grid { grid-template-columns: repeat(3, 1fr); }
+      .property-grid { grid-template-columns: repeat(2, 1fr); }
+      .metric-grid { grid-template-columns: repeat(2, 1fr); }
+      .dashboard-layout,
+      .owner-callout,
+      .experience-grid { grid-template-columns: 1fr; }
+      .footer-inner { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 680px) {
+      .demo-ribbon { padding-inline: 12px; }
+      .header-inner { min-height: 66px; }
+      .brand { font-size: 20px; }
+      .header-actions .secondary-button { display: none; }
+      .hero { min-height: 0; padding: 62px 0 54px; background-position: 62% center; }
+      .hero h1 { font-size: clamp(43px, 15vw, 64px); }
+      .search-shell { grid-template-columns: 1fr; border-radius: 18px; }
+      .search-field { padding: 9px 12px; }
+      .search-submit { grid-column: auto; }
+      .hero-proof { display: grid; gap: 10px; }
+      .content-section { padding: 54px 0; }
+      .section-heading,
+      .dashboard-heading,
+      .results-bar { align-items: start; flex-direction: column; }
+      .category-grid { grid-template-columns: repeat(2, 1fr); }
+      .property-grid { grid-template-columns: 1fr; }
+      .property-media { min-height: 230px; }
+      .experience-list,
+      .form-grid { grid-template-columns: 1fr; }
+      .form-group.full { grid-column: auto; }
+      .owner-callout { padding: 30px 24px; }
+      .metric-grid { grid-template-columns: 1fr 1fr; }
+      .dashboard-layout { grid-template-columns: 1fr; }
+      .listing-row,
+      .request-row {
+        grid-template-columns: 1fr auto;
+        align-items: start;
+      }
+      .listing-row > :nth-child(2),
+      .request-row > :nth-child(2) { display: none; }
+      .footer-inner { grid-template-columns: 1fr; }
+      .dialog-actions { flex-direction: column-reverse; }
+      .dialog-actions button { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="demo-ribbon">Prototipo navegable · datos y reservas de demostración</div>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <button class="brand" type="button" data-view="explore" aria-label="Ir a inicio de CABANY">
+        <span class="brand-mark">⌂</span>
+        CABANY
+      </button>
+
+      <nav class="desktop-nav" aria-label="Navegación principal">
+        <button class="nav-button" type="button" data-view="explore" aria-current="page">Explorar</button>
+        <button class="nav-button" type="button" data-view="owner">Propietarios</button>
+        <button class="nav-button" type="button" data-view="admin">CABANY Admin</button>
+      </nav>
+
+      <div class="header-actions">
+        <button class="secondary-button" type="button" data-open-owner>Publicar alojamiento</button>
+        <button class="primary-button" type="button" data-view="explore">Iniciar sesión</button>
+        <button class="icon-button mobile-menu-button" type="button" aria-label="Mostrar opciones" data-mobile-menu>☰</button>
+      </div>
+    </div>
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Navegación móvil" hidden>
+      <button class="nav-button" type="button" data-view="explore">Explorar alojamientos</button>
+      <button class="nav-button" type="button" data-view="owner">Panel de propietarios</button>
+      <button class="nav-button" type="button" data-view="admin">CABANY Admin</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-panel" id="explore-panel" data-panel="explore">
+      <section class="hero">
+        <div class="hero-inner">
+          <p class="eyebrow">Panamá se vive mejor desde aquí</p>
+          <h1>Hospedajes que se sienten como un destino.</h1>
+          <p class="hero-copy">Descubre cabañas, alojamientos y experiencias seleccionadas por CABANY en Tierras Altas, Boquete y otros rincones de Panamá.</p>
+
+          <form class="search-shell" id="search-form">
+            <div class="search-field">
+              <label for="destination">Destino</label>
+              <select id="destination" name="destination">
+                <option value="all">Cualquier destino</option>
+                <option value="tierras-altas">Tierras Altas</option>
+                <option value="boquete">Boquete</option>
+                <option value="volcan">Volcán</option>
+                <option value="cerro-punta">Cerro Punta</option>
+              </select>
+            </div>
+            <div class="search-field">
+              <label for="checkin">Entrada</label>
+              <input id="checkin" name="checkin" type="date" value="2026-09-10" min="2026-09-01">
+            </div>
+            <div class="search-field">
+              <label for="checkout">Salida</label>
+              <input id="checkout" name="checkout" type="date" value="2026-09-12" min="2026-09-02">
+            </div>
+            <div class="search-field">
+              <label for="guests">Huéspedes</label>
+              <select id="guests" name="guests">
+                <option value="1">1 huésped</option>
+                <option value="2" selected>2 huéspedes</option>
+                <option value="4">4 huéspedes</option>
+                <option value="6">6 huéspedes</option>
+                <option value="8">8 huéspedes</option>
+              </select>
+            </div>
+            <button class="search-submit" type="submit">Buscar</button>
+          </form>
+
+          <div class="hero-proof" aria-label="Beneficios">
+            <span>Oferta revisada por CABANY</span>
+            <span>Atención local</span>
+            <span>Reserva inicial asistida</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section" id="catalog">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow" style="color:var(--leaf)">Encuentra tu próxima escapada</p>
+            <h2>Explora a tu manera</h2>
+            <p>Filtros dinámicos de muestra para visualizar cómo se organizará el catálogo público.</p>
+          </div>
+        </div>
+
+        <div class="category-grid" aria-label="Categorías de alojamiento">
+          <button class="category-chip" type="button" data-category="all" aria-pressed="true"><span>🌿</span><strong>Todos</strong><small>Ver catálogo</small></button>
+          <button class="category-chip" type="button" data-category="cabana" aria-pressed="false"><span>🏡</span><strong>Cabañas</strong><small>Naturaleza privada</small></button>
+          <button class="category-chip" type="button" data-category="montana" aria-pressed="false"><span>⛰️</span><strong>Montaña</strong><small>Vistas y senderos</small></button>
+          <button class="category-chip" type="button" data-category="familiar" aria-pressed="false"><span>👨‍👩‍👧‍👦</span><strong>Familiares</strong><small>Espacios amplios</small></button>
+          <button class="category-chip" type="button" data-category="romantica" aria-pressed="false"><span>✨</span><strong>Románticas</strong><small>Escapadas de pareja</small></button>
+          <button class="category-chip" type="button" data-category="pet" aria-pressed="false"><span>🐾</span><strong>Pet friendly</strong><small>Viaja con tu mascota</small></button>
+        </div>
+
+        <div class="results-bar">
+          <div><strong id="result-count">4 alojamientos</strong> <span id="result-context">seleccionados para ti</span></div>
+          <button class="filter-button" type="button" id="reset-filters">Restablecer filtros</button>
+        </div>
+
+        <div class="property-grid" id="property-grid" aria-live="polite">
+          <article class="property-card" data-property data-destination="tierras-altas" data-category="cabana montana romantica" data-guests="4" data-title="Bosque Alto Cabin" data-location="Tierras Altas, Chiriquí" data-price="145" data-image="media-one">
+            <div class="property-media media-one">
+              <span class="property-tag">Destacado</span>
+              <button class="favorite-button" type="button" aria-label="Guardar Bosque Alto Cabin" aria-pressed="false">♡</button>
+            </div>
+            <div class="property-body">
+              <div class="property-topline"><h3>Bosque Alto Cabin</h3><span class="rating">★ 4.9</span></div>
+              <p class="property-location">📍 Tierras Altas, Chiriquí</p>
+              <ul class="property-features"><li>4 huéspedes</li><li>2 habitaciones</li><li>Chimenea</li></ul>
+              <div class="property-footer">
+                <div class="price"><strong>B/.145</strong><small>por noche</small></div>
+                <button class="details-button" type="button" data-details>Ver alojamiento</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="property-card" data-property data-destination="boquete" data-category="cabana familiar pet" data-guests="6" data-title="Casa Río Boquete" data-location="Bajo Boquete, Chiriquí" data-price="190" data-image="media-two">
+            <div class="property-media media-two">
+              <span class="property-tag">Ideal para familias</span>
+              <button class="favorite-button" type="button" aria-label="Guardar Casa Río Boquete" aria-pressed="false">♡</button>
+            </div>
+            <div class="property-body">
+              <div class="property-topline"><h3>Casa Río Boquete</h3><span class="rating">★ 4.8</span></div>
+              <p class="property-location">📍 Bajo Boquete, Chiriquí</p>
+              <ul class="property-features"><li>6 huéspedes</li><li>3 habitaciones</li><li>Pet friendly</li></ul>
+              <div class="property-footer">
+                <div class="price"><strong>B/.190</strong><small>por noche</small></div>
+                <button class="details-button" type="button" data-details>Ver alojamiento</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="property-card" data-property data-destination="volcan" data-category="montana romantica" data-guests="2" data-title="Nido del Volcán" data-location="Volcán, Chiriquí" data-price="118" data-image="media-three">
+            <div class="property-media media-three">
+              <span class="property-tag">Nuevo</span>
+              <button class="favorite-button" type="button" aria-label="Guardar Nido del Volcán" aria-pressed="false">♡</button>
+            </div>
+            <div class="property-body">
+              <div class="property-topline"><h3>Nido del Volcán</h3><span class="rating">★ 4.7</span></div>
+              <p class="property-location">📍 Volcán, Chiriquí</p>
+              <ul class="property-features"><li>2 huéspedes</li><li>Jacuzzi</li><li>Vista al valle</li></ul>
+              <div class="property-footer">
+                <div class="price"><strong>B/.118</strong><small>por noche</small></div>
+                <button class="details-button" type="button" data-details>Ver alojamiento</button>
+              </div>
+            </div>
+          </article>
+
+          <article class="property-card" data-property data-destination="cerro-punta" data-category="cabana montana familiar pet" data-guests="8" data-title="Refugio Cerro Punta" data-location="Cerro Punta, Chiriquí" data-price="225" data-image="media-four">
+            <div class="property-media media-four">
+              <span class="property-tag">Grupos</span>
+              <button class="favorite-button" type="button" aria-label="Guardar Refugio Cerro Punta" aria-pressed="false">♡</button>
+            </div>
+            <div class="property-body">
+              <div class="property-topline"><h3>Refugio Cerro Punta</h3><span class="rating">★ 4.9</span></div>
+              <p class="property-location">📍 Cerro Punta, Chiriquí</p>
+              <ul class="property-features"><li>8 huéspedes</li><li>4 habitaciones</li><li>Estacionamiento</li></ul>
+              <div class="property-footer">
+                <div class="price"><strong>B/.225</strong><small>por noche</small></div>
+                <button class="details-button" type="button" data-details>Ver alojamiento</button>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="empty-results" id="empty-results" hidden>
+          <h3>No encontramos opciones con esos criterios</h3>
+          <p>Prueba con otro destino, menos huéspedes o una categoría diferente.</p>
+          <button class="primary-button" type="button" data-reset>Ver todos los alojamientos</button>
+        </div>
+      </section>
+
+      <section class="experience-strip">
+        <div class="experience-grid">
+          <div class="experience-copy">
+            <p class="eyebrow">Más que alojamientos</p>
+            <h2>Experiencias que conectan con Panamá</h2>
+            <p>La arquitectura deja preparado el catálogo para incorporar tours, actividades y paquetes turísticos en las siguientes etapas.</p>
+            <button class="secondary-button" type="button" data-toast="Módulo de experiencias preparado para una etapa posterior.">Explorar experiencias</button>
+          </div>
+          <div class="experience-list">
+            <article class="experience-item"><span>🌋</span><h3>Ruta del Volcán Barú</h3><p>Senderismo, guía local y vistas de altura.</p></article>
+            <article class="experience-item"><span>☕</span><h3>Café de origen</h3><p>Recorrido por finca y degustación artesanal.</p></article>
+            <article class="experience-item"><span>🌿</span><h3>Bosque y biodiversidad</h3><p>Experiencias de naturaleza en Tierras Altas.</p></article>
+            <article class="experience-item"><span>🚐</span><h3>Paquetes CABANY</h3><p>Alojamiento, tour y transporte en una propuesta.</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="owner-callout">
+        <div>
+          <p class="eyebrow" style="color:var(--leaf)">Para propietarios y proveedores</p>
+          <h2>Tu espacio, visible para nuevos viajeros.</h2>
+          <p>Registra tu perfil y envía tu alojamiento, experiencia o servicio. CABANY revisará la información antes de publicarla.</p>
+          <button class="primary-button" type="button" data-open-owner>Comenzar registro</button>
+        </div>
+        <div class="owner-flow" aria-label="Flujo de publicación">
+          <div>1. Registro del proveedor</div>
+          <div>2. Carga de alojamiento y fotografías</div>
+          <div>3. Revisión y aprobación CABANY</div>
+          <div>4. Publicación en el catálogo</div>
+        </div>
+      </section>
+    </section>
+
+    <section class="page-panel" id="owner-panel" data-panel="owner" hidden>
+      <div class="dashboard">
+        <div class="dashboard-heading">
+          <div>
+            <span class="status-pill">Vista de demostración</span>
+            <h1>Panel del propietario</h1>
+            <p>Una muestra del flujo inicial de registro, publicaciones y revisión administrativa.</p>
+          </div>
+          <button class="primary-button" type="button" data-open-owner>+ Nuevo alojamiento</button>
+        </div>
+
+        <div class="metric-grid">
+          <article class="metric"><small>Alojamientos</small><strong>3</strong></article>
+          <article class="metric"><small>Publicados</small><strong>2</strong></article>
+          <article class="metric"><small>En revisión</small><strong>1</strong></article>
+          <article class="metric"><small>Solicitudes</small><strong>7</strong></article>
+        </div>
+
+        <div class="dashboard-layout">
+          <section class="dashboard-card">
+            <h2>Mis publicaciones</h2>
+            <div class="listing-row">
+              <div class="row-title"><strong>Bosque Alto Cabin</strong><small>Tierras Altas · Cabaña</small></div>
+              <div><span class="table-label">Estado</span><br><span class="status-pill">Publicado</span></div>
+              <div><span class="table-label">Solicitudes</span><br><strong>4</strong></div>
+              <button class="filter-button" type="button" data-toast="Edición simulada: el formulario se habilitaría en la implementación.">Editar</button>
+            </div>
+            <div class="listing-row">
+              <div class="row-title"><strong>Casa Río Boquete</strong><small>Boquete · Casa familiar</small></div>
+              <div><span class="table-label">Estado</span><br><span class="status-pill">Publicado</span></div>
+              <div><span class="table-label">Solicitudes</span><br><strong>3</strong></div>
+              <button class="filter-button" type="button" data-toast="Edición simulada: el formulario se habilitaría en la implementación.">Editar</button>
+            </div>
+            <div class="listing-row">
+              <div class="row-title"><strong>Cabaña Los Pinos</strong><small>Volcán · Cabaña</small></div>
+              <div><span class="table-label">Estado</span><br><strong style="color:#9b6510">En revisión</strong></div>
+              <div><span class="table-label">Solicitudes</span><br><strong>—</strong></div>
+              <button class="filter-button" type="button" data-toast="La publicación está pendiente de aprobación de CABANY.">Ver estado</button>
+            </div>
+          </section>
+
+          <aside class="dashboard-card">
+            <h3>Flujo de publicación</h3>
+            <div class="workflow-list">
+              <div class="workflow-item"><strong>Datos básicos</strong><small>Nombre, descripción y categoría.</small></div>
+              <div class="workflow-item"><strong>Ubicación y características</strong><small>Región, capacidad y amenidades.</small></div>
+              <div class="workflow-item"><strong>Fotos</strong><small>Galería y foto principal.</small></div>
+              <div class="workflow-item"><strong>Enviar a revisión</strong><small>CABANY aprueba antes de publicar.</small></div>
+            </div>
+          </aside>
+        </div>
+
+        <div class="scope-banner"><strong>Alcance de la primera versión</strong>Las reservas ingresan como solicitudes y CABANY confirma manualmente la disponibilidad. El calendario automatizado, los pagos y las comisiones se incorporan en etapas posteriores.</div>
+      </div>
+    </section>
+
+    <section class="page-panel" id="admin-panel" data-panel="admin" hidden>
+      <div class="dashboard">
+        <div class="dashboard-heading">
+          <div>
+            <span class="status-pill">CABANY Admin</span>
+            <h1>Control operativo inicial</h1>
+            <p>Panel de ejemplo para revisar proveedores, publicaciones y solicitudes de reserva.</p>
+          </div>
+          <button class="secondary-button" type="button" data-view="explore">Ver sitio público</button>
+        </div>
+
+        <div class="metric-grid">
+          <article class="metric"><small>Proveedores</small><strong>18</strong></article>
+          <article class="metric"><small>Por aprobar</small><strong>4</strong></article>
+          <article class="metric"><small>Publicaciones</small><strong>27</strong></article>
+          <article class="metric"><small>Solicitudes nuevas</small><strong>9</strong></article>
+        </div>
+
+        <div class="dashboard-layout">
+          <section class="dashboard-card">
+            <h2>Solicitudes de reserva</h2>
+            <div class="request-row">
+              <div class="row-title"><strong>CAB-2026-000125</strong><small>Bosque Alto Cabin · 10–12 sep.</small></div>
+              <div><span class="table-label">Cliente</span><br><strong>Ana Torres</strong></div>
+              <div><span class="table-label">Estado</span><br><strong style="color:#9b6510">Nueva</strong></div>
+              <button class="filter-button" type="button" data-toast="Solicitud abierta para revisión.">Revisar</button>
+            </div>
+            <div class="request-row">
+              <div class="row-title"><strong>CAB-2026-000124</strong><small>Casa Río Boquete · 18–20 sep.</small></div>
+              <div><span class="table-label">Cliente</span><br><strong>Mario Vega</strong></div>
+              <div><span class="table-label">Estado</span><br><strong style="color:var(--forest)">Confirmada</strong></div>
+              <button class="filter-button" type="button" data-toast="Solicitud confirmada por el equipo CABANY.">Ver</button>
+            </div>
+            <div class="request-row">
+              <div class="row-title"><strong>CAB-2026-000123</strong><small>Nido del Volcán · 21–23 sep.</small></div>
+              <div><span class="table-label">Cliente</span><br><strong>Lucía Díaz</strong></div>
+              <div><span class="table-label">Estado</span><br><strong style="color:#1d6d94">En revisión</strong></div>
+              <button class="filter-button" type="button" data-toast="El equipo está verificando disponibilidad.">Revisar</button>
+            </div>
+          </section>
+
+          <aside class="dashboard-card">
+            <h3>Publicaciones pendientes</h3>
+            <div class="workflow-list">
+              <div class="workflow-item"><strong>Cabaña Los Pinos</strong><small>Revisar fotografías y ubicación.</small></div>
+              <div class="workflow-item"><strong>Tour Sendero Quetzal</strong><small>Validar precio y punto de encuentro.</small></div>
+              <div class="workflow-item"><strong>Refugio La Amistad</strong><small>Validar amenidades declaradas.</small></div>
+            </div>
+            <div class="dialog-actions">
+              <button class="primary-button" type="button" data-toast="Cola de aprobación abierta en modo demostración.">Abrir revisiones</button>
+            </div>
+          </aside>
+        </div>
+
+        <div class="scope-banner"><strong>Evolución prevista</strong>El motor completo incorporará calendario, prevención de doble reserva, pagos, comisiones, reportes, mensajería, notificaciones y aplicaciones móviles sobre la misma API.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="brand" style="color:#fff"><span class="brand-mark">⌂</span>CABANY</div>
+        <p>Marketplace turístico panameño para alojamientos, experiencias y servicios con operación controlada por CABANY.</p>
+      </div>
+      <div class="footer-column"><h3>Descubrir</h3><a href="#catalog">Alojamientos</a><a href="#catalog">Destinos</a><a href="#catalog">Experiencias</a></div>
+      <div class="footer-column"><h3>Proveedores</h3><a href="#" data-open-owner>Publicar</a><a href="#" data-view="owner">Mi panel</a><a href="#" data-toast="Centro de ayuda representado en el prototipo.">Ayuda</a></div>
+      <div class="footer-column"><h3>CABANY</h3><a href="#" data-toast="Sección institucional representada en el prototipo.">Nosotros</a><a href="#" data-toast="Canal de contacto representado en el prototipo.">Contacto</a><a href="#" data-view="admin">Administración</a></div>
+    </div>
+    <div class="footer-bottom">© 2026 CABANY · Mockup demostrativo · La disponibilidad y los precios mostrados son ficticios.</div>
+  </footer>
+
+  <dialog id="details-dialog" aria-labelledby="details-title">
+    <div class="dialog-header">
+      <h2 id="details-title">Alojamiento</h2>
+      <button class="close-button" type="button" data-close-dialog aria-label="Cerrar">×</button>
+    </div>
+    <div class="dialog-body">
+      <div class="detail-hero" id="detail-image"></div>
+      <div class="detail-meta"><span id="detail-location">Ubicación</span><span>WiFi</span><span>Estacionamiento</span><span>Atención CABANY</span></div>
+      <p>Un alojamiento seleccionado para disfrutar de la naturaleza, la tranquilidad y la identidad local. La ficha final incluirá galería, reglas, amenidades, mapa, horarios y políticas.</p>
+      <div class="property-footer">
+        <div class="price"><strong id="detail-price">B/.0</strong><small>por noche · precio de muestra</small></div>
+        <button class="primary-button" type="button" id="open-reservation">Solicitar reserva</button>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="reservation-dialog" aria-labelledby="reservation-title">
+    <div class="dialog-header">
+      <h2 id="reservation-title">Solicitar reserva</h2>
+      <button class="close-button" type="button" data-close-dialog aria-label="Cerrar">×</button>
+    </div>
+    <div class="dialog-body" id="reservation-form-state">
+      <div class="assisted-note"><strong>Reserva asistida:</strong> la solicitud se registra digitalmente y el equipo CABANY confirma disponibilidad y forma de pago.</div>
+      <form id="reservation-form">
+        <div class="form-grid">
+          <div class="form-group full"><label for="reservation-property">Alojamiento</label><input id="reservation-property" name="property" readonly></div>
+          <div class="form-group"><label for="reservation-checkin">Entrada</label><input id="reservation-checkin" name="checkin" type="date" required></div>
+          <div class="form-group"><label for="reservation-checkout">Salida</label><input id="reservation-checkout" name="checkout" type="date" required></div>
+          <div class="form-group"><label for="reservation-guests">Huéspedes</label><select id="reservation-guests" name="guests"><option>1</option><option selected>2</option><option>4</option><option>6</option><option>8</option></select></div>
+          <div class="form-group"><label for="reservation-phone">WhatsApp</label><input id="reservation-phone" name="phone" type="tel" placeholder="+507 6000-0000" required></div>
+          <div class="form-group full"><label for="reservation-name">Nombre completo</label><input id="reservation-name" name="name" autocomplete="name" required></div>
+          <div class="form-group full"><label for="reservation-email">Correo electrónico</label><input id="reservation-email" name="email" type="email" autocomplete="email" required></div>
+          <div class="form-group full"><label for="reservation-notes">Observaciones</label><textarea id="reservation-notes" name="notes" placeholder="Cuéntanos si tienes alguna necesidad especial."></textarea></div>
+        </div>
+        <div class="dialog-actions">
+          <button class="secondary-button" type="button" data-close-dialog>Cancelar</button>
+          <button class="primary-button" type="submit">Enviar solicitud</button>
+        </div>
+      </form>
+    </div>
+    <div class="success-state" id="reservation-success" hidden>
+      <div class="success-icon">✓</div>
+      <h2>Solicitud registrada</h2>
+      <p>El equipo CABANY revisará la disponibilidad y se pondrá en contacto contigo.</p>
+      <div class="reservation-code" id="reservation-code">CAB-DEMO-0001</div>
+      <div><button class="primary-button" type="button" data-close-dialog>Entendido</button></div>
+    </div>
+  </dialog>
+
+  <dialog id="owner-dialog" aria-labelledby="owner-title">
+    <div class="dialog-header">
+      <h2 id="owner-title">Registrar proveedor</h2>
+      <button class="close-button" type="button" data-close-dialog aria-label="Cerrar">×</button>
+    </div>
+    <div class="dialog-body">
+      <div class="assisted-note">Tu perfil y tus publicaciones quedarán pendientes de revisión antes de aparecer en el catálogo.</div>
+      <form id="owner-form">
+        <div class="form-grid">
+          <div class="form-group"><label for="owner-name">Nombre o empresa</label><input id="owner-name" required></div>
+          <div class="form-group"><label for="owner-phone">Teléfono</label><input id="owner-phone" type="tel" required></div>
+          <div class="form-group"><label for="owner-email">Correo</label><input id="owner-email" type="email" required></div>
+          <div class="form-group"><label for="owner-type">Tipo de oferta</label><select id="owner-type"><option>Alojamiento</option><option>Experiencia o tour</option><option>Servicio turístico</option></select></div>
+          <div class="form-group full"><label for="owner-location">Región o ubicación</label><input id="owner-location" placeholder="Ej. Tierras Altas, Chiriquí" required></div>
+        </div>
+        <div class="dialog-actions">
+          <button class="secondary-button" type="button" data-close-dialog>Cancelar</button>
+          <button class="primary-button" type="submit">Enviar registro</button>
+        </div>
+      </form>
+    </div>
+  </dialog>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      var currentCategory = "all";
+      var selectedProperty = null;
+      var toastTimer = null;
+      var panels = document.querySelectorAll("[data-panel]");
+      var viewButtons = document.querySelectorAll("[data-view]");
+      var propertyCards = Array.from(document.querySelectorAll("[data-property]"));
+      var resultCount = document.getElementById("result-count");
+      var resultContext = document.getElementById("result-context");
+      var emptyResults = document.getElementById("empty-results");
+      var searchForm = document.getElementById("search-form");
+      var detailsDialog = document.getElementById("details-dialog");
+      var reservationDialog = document.getElementById("reservation-dialog");
+      var ownerDialog = document.getElementById("owner-dialog");
+      var toast = document.getElementById("toast");
+      var mobileNav = document.getElementById("mobile-nav");
+
+      function showToast(message) {
+        window.clearTimeout(toastTimer);
+        toast.textContent = message;
+        toast.classList.add("show");
+        toastTimer = window.setTimeout(function () {
+          toast.classList.remove("show");
+        }, 3000);
+      }
+
+      function showView(view) {
+        panels.forEach(function (panel) {
+          panel.hidden = panel.getAttribute("data-panel") !== view;
+        });
+        document.querySelectorAll(".nav-button[data-view]").forEach(function (button) {
+          if (button.getAttribute("data-view") === view) {
+            button.setAttribute("aria-current", "page");
+          } else {
+            button.removeAttribute("aria-current");
+          }
+        });
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        mobileNav.hidden = true;
+      }
+
+      viewButtons.forEach(function (button) {
+        button.addEventListener("click", function (event) {
+          if (button.tagName === "A") event.preventDefault();
+          showView(button.getAttribute("data-view"));
+        });
+      });
+
+      function filterProperties(announce) {
+        var destination = document.getElementById("destination").value;
+        var guests = Number(document.getElementById("guests").value);
+        var visible = 0;
+
+        propertyCards.forEach(function (card) {
+          var destinationMatch = destination === "all" || card.dataset.destination === destination;
+          var categoryMatch = currentCategory === "all" || card.dataset.category.split(" ").indexOf(currentCategory) >= 0;
+          var guestMatch = Number(card.dataset.guests) >= guests;
+          var show = destinationMatch && categoryMatch && guestMatch;
+          card.hidden = !show;
+          if (show) visible += 1;
+        });
+
+        resultCount.textContent = visible + (visible === 1 ? " alojamiento" : " alojamientos");
+        resultContext.textContent = destination === "all" ? "seleccionados para ti" : "disponibles en el destino elegido";
+        emptyResults.hidden = visible !== 0;
+        if (announce) {
+          document.getElementById("catalog").scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+
+      function resetFilters() {
+        currentCategory = "all";
+        document.getElementById("destination").value = "all";
+        document.getElementById("guests").value = "2";
+        document.querySelectorAll("[data-category]").forEach(function (button) {
+          button.setAttribute("aria-pressed", button.dataset.category === "all" ? "true" : "false");
+        });
+        filterProperties(false);
+      }
+
+      searchForm.addEventListener("submit", function (event) {
+        event.preventDefault();
+        var checkin = document.getElementById("checkin").value;
+        var checkout = document.getElementById("checkout").value;
+        if (checkin && checkout && checkout <= checkin) {
+          showToast("La fecha de salida debe ser posterior a la fecha de entrada.");
+          return;
+        }
+        filterProperties(true);
+      });
+
+      document.querySelectorAll("[data-category]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          currentCategory = button.dataset.category;
+          document.querySelectorAll("[data-category]").forEach(function (item) {
+            item.setAttribute("aria-pressed", item === button ? "true" : "false");
+          });
+          filterProperties(false);
+        });
+      });
+
+      document.getElementById("reset-filters").addEventListener("click", resetFilters);
+      document.querySelectorAll("[data-reset]").forEach(function (button) {
+        button.addEventListener("click", resetFilters);
+      });
+
+      document.querySelectorAll(".favorite-button").forEach(function (button) {
+        button.addEventListener("click", function () {
+          var active = button.getAttribute("aria-pressed") === "true";
+          button.setAttribute("aria-pressed", active ? "false" : "true");
+          button.textContent = active ? "♡" : "♥";
+          showToast(active ? "Se eliminó de favoritos." : "Guardado en favoritos.");
+        });
+      });
+
+      document.querySelectorAll("[data-details]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          selectedProperty = button.closest("[data-property]");
+          document.getElementById("details-title").textContent = selectedProperty.dataset.title;
+          document.getElementById("detail-location").textContent = "📍 " + selectedProperty.dataset.location;
+          document.getElementById("detail-price").textContent = "B/." + selectedProperty.dataset.price;
+          document.getElementById("detail-image").className = "detail-hero " + selectedProperty.dataset.image;
+          detailsDialog.showModal();
+        });
+      });
+
+      document.getElementById("open-reservation").addEventListener("click", function () {
+        detailsDialog.close();
+        document.getElementById("reservation-property").value = selectedProperty ? selectedProperty.dataset.title : "Alojamiento CABANY";
+        document.getElementById("reservation-checkin").value = document.getElementById("checkin").value;
+        document.getElementById("reservation-checkout").value = document.getElementById("checkout").value;
+        document.getElementById("reservation-guests").value = document.getElementById("guests").value;
+        document.getElementById("reservation-form-state").hidden = false;
+        document.getElementById("reservation-success").hidden = true;
+        reservationDialog.showModal();
+      });
+
+      document.getElementById("reservation-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+        var checkin = document.getElementById("reservation-checkin").value;
+        var checkout = document.getElementById("reservation-checkout").value;
+        if (checkout <= checkin) {
+          showToast("Revisa las fechas de la solicitud.");
+          return;
+        }
+        var code = "CAB-DEMO-" + String(Math.floor(Math.random() * 9000) + 1000);
+        document.getElementById("reservation-code").textContent = code;
+        document.getElementById("reservation-form-state").hidden = true;
+        document.getElementById("reservation-success").hidden = false;
+      });
+
+      document.querySelectorAll("[data-open-owner]").forEach(function (button) {
+        button.addEventListener("click", function (event) {
+          if (button.tagName === "A") event.preventDefault();
+          ownerDialog.showModal();
+        });
+      });
+
+      document.getElementById("owner-form").addEventListener("submit", function (event) {
+        event.preventDefault();
+        ownerDialog.close();
+        event.target.reset();
+        showToast("Registro de demostración enviado para revisión.");
+      });
+
+      document.querySelectorAll("[data-close-dialog]").forEach(function (button) {
+        button.addEventListener("click", function () {
+          button.closest("dialog").close();
+        });
+      });
+
+      document.querySelectorAll("dialog").forEach(function (dialog) {
+        dialog.addEventListener("click", function (event) {
+          if (event.target === dialog) dialog.close();
+        });
+      });
+
+      document.querySelectorAll("[data-toast]").forEach(function (button) {
+        button.addEventListener("click", function (event) {
+          if (button.tagName === "A") event.preventDefault();
+          showToast(button.getAttribute("data-toast"));
+        });
+      });
+
+      document.querySelector("[data-mobile-menu]").addEventListener("click", function () {
+        mobileNav.hidden = !mobileNav.hidden;
+      });
+
+      var checkinInput = document.getElementById("checkin");
+      var checkoutInput = document.getElementById("checkout");
+      checkinInput.addEventListener("change", function () {
+        checkoutInput.min = checkinInput.value;
+      });
+
+      filterProperties(false);
+    }());
+  </script>
+</body>
+</html>

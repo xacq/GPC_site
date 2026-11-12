@@ -1,0 +1,9 @@
+*.log
+*.bak
+*.sql
+*.zip
+.DS_Store
+system/First SQL's.txt
+
+config.bat
+node_modules

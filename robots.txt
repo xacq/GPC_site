@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+Disallow: /system/
+Disallow: /musicast4.zip
+
+Sitemap: https://greenpc.dev/sitemap.xml
+

@@ -1,0 +1,15 @@
+# This legacy administration module is intentionally local-only until its
+# authentication and workflows receive a dedicated production audit.
+Require local
+
+Options -Indexes
+
+# The privacy notice is linked from the public footer and remains public.
+<Files "politicasprivacidad.php">
+  Require all granted
+</Files>
+
+<FilesMatch "\.(?:sql|txt|bak|log|env)$">
+  Require all denied
+</FilesMatch>
+
